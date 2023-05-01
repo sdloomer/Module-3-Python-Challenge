@@ -18,11 +18,15 @@ with open(csv_path_election) as csvfile:
     header = next(csvreader)
     
     # Begin loop through rows
+    
     # votesPerCandidate dictionary where key is candidate name, votes are value
         # votesPerCandidate = {name : number of votes}
     votesPerCandidate = {}
+    
+    # declare each line in csv as variable
     for ballot in csvreader:
-        # Get the name of the candidate
+        
+        # Get the name of the candidate in each line
         currentCandidate = ballot[2]
 
         # Get number of votes the current candidate has (default to 0) and increase by 1
