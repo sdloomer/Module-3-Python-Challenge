@@ -9,7 +9,7 @@ dirname = os.path.dirname(__file__)
 csv_path_election = os.path.join(dirname, 'Resources', 'election_data.csv')
 
 # Read in CSV file
-with open(csv_path_election) as csvfile:
+with open(csv_path_election, 'r') as csvfile:
     
     # Specify delimiter
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -43,15 +43,30 @@ with open(csv_path_election) as csvfile:
     percentagePerCandidate = {}
     winner = ""
     for candidate in votesPerCandidate.keys():
-        percentagePerCandidate[candidate] = (votesPerCandidate[candidate] / totalVotes) * 100
+        percentagePerCandidate[candidate] = (votesPerCandidate[candidate] / totalVotes)
         if votesPerCandidate[candidate] > votesPerCandidate.get(winner, 0):
-            winner = candidate
+            winner = candidate    
 
-    # Print results
-        print(f"Election Results")
-        print("---------------------------------")
-        print(f"Total Votes: {str(totalVotes)}")
-        print(f"Votes Per Candidate: {str(votesPerCandidate)}")
-        print(f"Percentage Per Candidate: {str(percentagePerCandidate)}")
-        print("---------------------------------")
-        print("Winner: " + str(winner))
+# Export and print results to text file
+candidateResults = []
+for candidate in votesPerCandidate:
+    candidateResults.append(f'{str(candidate)}: {"{:.2%}".format(percentagePerCandidate[candidate])} ({str(votesPerCandidate[candidate])})')
+
+lines = [f"Election Results",
+         f"----------------",
+         f"Total Votes: {str(totalVotes)}",
+         *candidateResults,
+         f"----------------",
+         f"Winner: {str(winner)}"]
+
+outputString = '\n'.join(lines)
+
+# Print to terminal
+print(outputString)
+
+# Open path to text file
+path_results = os.path.join('.', 'Analysis', 'PyPollResults.txt')
+
+# Write in text file
+with open(path_results, 'w') as f:
+    f.writelines(outputString)
