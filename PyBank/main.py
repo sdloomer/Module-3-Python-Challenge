@@ -62,10 +62,23 @@ with open(budget_path, 'r') as budget_file:
             minDeltaMonth = str(rowData[0])
     
     averagechange = totalchange / (totalmonths - 1)
-    print(averagechange)
     # Print results to terminal
-    print(f"Total Months: {str(totalmonths)}")
-    print(f"Total: ${str(totalprofits)}")
-    print(f'Average Change: ${"{:.2f}".format(averagechange)}')
-    print(f"Greatest Increase in Profits: {str(maxDeltaMonth)}: (${str(maxProfitDelta)})")
-    print(f"Greatest Decrease in Profits: {str(minDeltaMonth)}: (${str(minProfitDelta)})")
+lines = [
+    f"Total Months: {str(totalmonths)}",
+    f"Total: ${str(totalprofits)}",
+    f'Average Change: ${"{:.2f}".format(averagechange)}',
+    f"Greatest Increase in Profits: {str(maxDeltaMonth)}: (${str(maxProfitDelta)})",
+    f"Greatest Decrease in Profits: {str(minDeltaMonth)}: (${str(minProfitDelta)})",
+]
+
+outputString = '\n'.join(lines)
+
+# Print to terminal
+print(outputString)
+
+# Export to file
+
+
+
+
+
