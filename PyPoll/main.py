@@ -47,11 +47,14 @@ with open(csv_path_election, 'r') as csvfile:
         if votesPerCandidate[candidate] > votesPerCandidate.get(winner, 0):
             winner = candidate    
 
-# Export and print results to text file
+# Print results
+
+# Assign variable to results list
 candidateResults = []
 for candidate in votesPerCandidate:
     candidateResults.append(f'{str(candidate)}: {"{:.2%}".format(percentagePerCandidate[candidate])} ({str(votesPerCandidate[candidate])})')
 
+# Assign results to list (and insert candidateResults variable into middle of list by using spread operator)
 lines = [f"Election Results",
          f"----------------",
          f"Total Votes: {str(totalVotes)}",
@@ -59,13 +62,14 @@ lines = [f"Election Results",
          f"----------------",
          f"Winner: {str(winner)}"]
 
+# assign variable to list to print
 outputString = '\n'.join(lines)
 
 # Print to terminal
 print(outputString)
 
 # Open path to text file
-path_results = os.path.join('.', 'Analysis', 'PyPollResults.txt')
+path_results = os.path.join('.', 'Analysis', 'PyPollResults.csv')
 
 # Write in text file
 with open(path_results, 'w') as f:
